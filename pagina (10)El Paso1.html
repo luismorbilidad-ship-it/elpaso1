@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citas Médicas - Ambulatorio El Paso</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            --card-bg: rgba(255, 255, 255, 0.98);
+            --primary-gradient: linear-gradient(135deg, #0284c7, #0369a1);
+            --primary: #0284c7;
+            --accent-green: #16a34a;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+            --border-radius: 20px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 15px 12px;
+        }
+
+        .container {
+            background: var(--card-bg);
+            padding: 25px 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+            max-width: 520px;
+            width: 100%;
+            margin-top: 5px;
+            margin-bottom: 25px;
+            backdrop-filter: blur(16px);
+        }
+
+        .header-brand {
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .header-icon {
+            font-size: 42px;
+            margin-bottom: 4px;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 2px;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 12.5px;
+            font-weight: 600;
+        }
+
+        .badge-status {
+            background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+            color: #0369a1;
+            border: 1.5px solid #7dd3fc;
+            padding: 10px 14px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .form-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        label {
+            font-size: 11.5px;
+            font-weight: 800;
+            color: #334155;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 14px;
+            background: #f8fafc;
+            color: var(--text-dark);
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary);
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.15);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            background: #f8fafc;
+            padding: 11px 14px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #334155;
+            cursor: pointer;
+        }
+
+        .radio-option input {
+            width: 17px;
+            height: 17px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.35);
+            margin-top: 6px;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+
+        .btn-submit:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .confirmation-card {
+            display: none;
+            text-align: center;
+            padding: 10px 5px;
+        }
+
+        .confirmation-card .check-icon {
+            font-size: 55px;
+            margin-bottom: 10px;
+            color: var(--accent-green);
+        }
+
+        .confirmation-details {
+            background: #f0fdf4;
+            border: 2px solid #bbf7d0;
+            border-radius: 14px;
+            padding: 18px;
+            margin: 16px 0;
+            text-align: left;
+            font-size: 13.5px;
+            color: #166534;
+            line-height: 1.6;
+        }
+
+        .btn-reset {
+            background: #475569;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .slogan-footer {
+            text-align: center;
+            margin-top: 22px;
+            font-style: italic;
+            font-size: 12px;
+            color: #15803d;
+            font-weight: 800;
+            padding-top: 14px;
+            border-top: 2px dashed #bbf7d0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-brand">
+        <div class="header-icon">🏥</div>
+        <h2>Ambulatorio El Paso</h2>
+        <p class="subtitle">Red de Ambulatorios - Municipio Guaicaipuro</p>
+    </div>
+
+    <div class="badge-status" id="badgeStatus">
+        🟢 Solicitud de Citas Médicas Habilitada
+    </div>
+
+    <form id="citaForm" class="form-grid" onsubmit="enviarCita(event)">
+        <div class="form-group">
+            <label for="nombres">Nombre y Apellido:</label>
+            <input type="text" id="nombres" required placeholder="Ingrese su Primer nombre y apellido">
+        </div>
+
+        <div class="form-group">
+            <label for="cedula">Cédula de Identidad:</label>
+            <input type="text" id="cedula" required placeholder="Ej. V-12345678">
+        </div>
+
+        <div class="form-group">
+            <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+            <input type="date" id="fechaNacimiento" required>
+        </div>
+
+        <div class="form-group">
+            <label for="edad">Edad:</label>
+            <input type="number" id="edad" required placeholder="Ingrese su Edad">
+        </div>
+
+        <div class="form-group">
+            <label>Sexo:</label>
+            <div class="radio-group">
+                <label class="radio-option">
+                    <input type="radio" name="sexo" value="F" required> Femenino
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="sexo" value="M" required> Masculino
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="parroquia">Parroquia:</label>
+            <input type="text" id="parroquia" required placeholder="...">
+        </div>
+
+        <div class="form-group">
+            <label for="ubicacion">Ubicación / Sector / Comunidad:</label>
+            <input type="text" id="ubicacion" required placeholder="...">
+        </div>
+
+        <div class="form-group">
+            <label for="telefono">Teléfono de Contacto:</label>
+            <input type="tel" id="telefono" required placeholder="Ej. 04121234567">
+        </div>
+
+        <div class="form-group">
+            <label for="tipoCita">Tipo de Cita:</label>
+            <select id="tipoCita" required>
+                <option value="" disabled selected>Seleccione una opción</option>
+                <option value="Por Primera Vez">Por Primera Vez</option>
+                <option value="Sucesivo">Sucesivo (Control / Ya he agendado antes)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="especialidad">Especialidad Requerida:</label>
+            <select id="especialidad" required>
+                <option value="" disabled selected>Seleccione la especialidad</option>
+                <option value="Medicina Interna">Medicina Interna</option>
+                <option value="Pediatría">Pediatría</option>
+                <option value="Ginecología">Ginecología</option>
+                <option value="Traumatología">Traumatología</option>
+                <option value="Psicología Adulto">Psicología Adulto</option>
+                <option value="Psicología Infantil">Psicología Infantil</option>
+                <option value="Ecografía">Ecografía</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn-submit" id="btnEnviar">Solicitar Agendamiento de Cita</button>
+    </form>
+
+    <div class="confirmation-card" id="confirmationCard">
+        <div class="check-icon">✅</div>
+        <h3>¡Registro Solicitado con Éxito!</h3>
+        <p style="color: #475569; font-size: 13.5px;">Sus datos se han enviado automáticamente al sistema.</p>
+
+        <div class="confirmation-details" id="confirmationDetails"></div>
+
+        <!-- BOTÓN DE WHATSAPP INTEGRADO -->
+        <a id="btnWhatsApp" href="#" target="_blank" style="display: block; width: 100%; background: #25d366; color: white; text-decoration: none; padding: 14px; border-radius: 12px; font-weight: 800; margin-bottom: 12px; text-align: center; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);">
+            💬 Notificar a la Oficina por WhatsApp
+        </a>
+
+        <button class="btn-reset" onclick="reiniciarFormulario()">Solicitar otra cita</button>
+    </div>
+
+    <div class="slogan-footer">
+        "Para Farith Fraija su Salud es primordial."
+    </div>
+</div>
+
+<script>
+    // ⚠️ PEGA AQUÍ LA URL DE APPS SCRIPT DE ESTE AMBULATORIO ⚠️
+    const URL_GOOGLE_SHEETS ="https://script.google.com/macros/s/AKfycbyrN13hc_mXNXqZKH3Wpv86I-2f-by7RS9qZYey741E3RhdPOulAo5v5EPQ1QVs1NYV/exec";
+
+    function enviarCita(event) {
+        event.preventDefault();
+        const btn = document.getElementById('btnEnviar');
+        btn.innerText = "Procesando registro...";
+        btn.disabled = true;
+
+        const datosPaciente = {
+            nombres: document.getElementById('nombres').value.trim(),
+            cedula: document.getElementById('cedula').value.trim(),
+            fechaNacimiento: document.getElementById('fechaNacimiento').value,
+            edad: document.getElementById('edad').value.trim(),
+            sexo: document.querySelector('input[name="sexo"]:checked').value,
+            parroquia: document.getElementById('parroquia').value.trim(),
+            ubicacion: document.getElementById('ubicacion').value.trim(),
+            telefono: document.getElementById('telefono').value.trim(),
+            tipoCita: document.getElementById('tipoCita').value,
+            especialidad: document.getElementById('especialidad').value
+        };
+
+        fetch(URL_GOOGLE_SHEETS, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(datosPaciente)
+        }).then(() => {
+            const fechaHoy = new Date().toLocaleDateString('es-VE');
+            const horaHoy = new Date().toLocaleTimeString('es-VE', { hour: '2-digit', minute: '2-digit' });
+
+            // Armar mensaje automático para WhatsApp
+            const textoMensaje = `Hola, buenos días. Acabo de registrar mis datos para una cita médica:\n\n` +
+                                 `👤 *Nombre:* ${datosPaciente.nombres}\n` +
+                                 `🆔 *Cédula:* ${datosPaciente.cedula}\n` +
+                                 `📍 *Zona:* ${datosPaciente.parroquia} - ${datosPaciente.ubicacion}\n` +
+                                 `🩺 *Especialidad:* ${datosPaciente.especialidad}\n` +
+                                 `📋 *Tipo:* ${datosPaciente.tipoCita}`;
+
+            // ⚠️ CAMBIA ESTE NÚMERO POR EL DE LA OFICINA (Ej: 584121234567) ⚠️
+            const numeroOficina = "584242911580"; 
+            
+            const urlWhatsApp = `https://wa.me/${numeroOficina}?text=` + encodeURIComponent(textoMensaje);
+            document.getElementById('btnWhatsApp').href = urlWhatsApp;
+
+            document.getElementById('citaForm').style.display = "none";
+            document.getElementById('badgeStatus').style.display = "none";
+            
+            document.getElementById('confirmationDetails').innerHTML = `
+                <strong>Paciente:</strong> ${datosPaciente.nombres}<br>
+                <strong>Cédula:</strong> ${datosPaciente.cedula}<br>
+                <strong>Zona:</strong> ${datosPaciente.parroquia} - ${datosPaciente.ubicacion}<br>
+                <strong>Tipo de Cita:</strong> ${datosPaciente.tipoCita}<br>
+                <strong>Especialidad:</strong> ${datosPaciente.especialidad}<br>
+                <strong>Fecha:</strong> ${fechaHoy} (${horaHoy})<br><br>
+                📌 <em>¡Listo! Haz clic en el botón verde de abajo para notificar a la oficina por WhatsApp.</em>
+            `;
+            document.getElementById('confirmationCard').style.display = "block";
+        }).catch(() => {
+            alert("Hubo un error al enviar. Por favor intente de nuevo.");
+            btn.innerText = "Solicitar Agendamiento de Cita";
+            btn.disabled = false;
+        });
+    }
+
+    function reiniciarFormulario() {
+        document.getElementById('citaForm').reset();
+        document.getElementById('citaForm').style.display = "flex";
+        document.getElementById('badgeStatus').style.display = "flex";
+        document.getElementById('confirmationCard').style.display = "none";
+        document.getElementById('btnEnviar').innerText = "Solicitar Agendamiento de Cita";
+        document.getElementById('btnEnviar').disabled = false;
+    }
+</script>
+
+</body>
+</html>
+            
